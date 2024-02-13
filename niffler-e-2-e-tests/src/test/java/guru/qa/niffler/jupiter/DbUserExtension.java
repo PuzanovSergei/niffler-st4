@@ -62,7 +62,6 @@ public class DbUserExtension implements ParameterResolver, BeforeEachCallback, A
 
             UserEntity user = new UserEntity();
             user.setUsername(userName);
-            user.setUsername(password);
             user.setCurrency(CurrencyValues.RUB);
 
             userRepositoryJdbc.createInAuth(userAuth);

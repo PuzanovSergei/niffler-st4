@@ -6,13 +6,20 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class WelcomePage {
-    private SelenideElement buttonLogin = $x("//*[@href='/redirect']");
+public class WelcomePage extends BasePage<WelcomePage> {
+    private final SelenideElement buttonLogin = $x("//*[@href='/redirect']");
+    private final SelenideElement buttonRegister = $x("//a[text()='Register']");
 
     @Step("Нажать на кнопку Login")
-    public LoginPage clickLoginButton() {
+    public LoginPage clickLoginBtn() {
         buttonLogin.click();
         return new LoginPage();
+    }
+
+    @Step("Нажать на кнопку Register")
+    public RegisterPage clickLoginRegisterBtn() {
+        buttonRegister.click();
+        return new RegisterPage();
     }
 
     @Step("Открыть старовую старницу")

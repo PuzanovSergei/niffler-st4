@@ -22,7 +22,7 @@ public class SpendingTest extends BaseWebTest {
     @Test
     void spendingShouldBeDeletedByButtonDeleteSpending(SpendJson spend) {
         Selenide.open("http://127.0.0.1:3000/main", WelcomePage.class)
-                .clickLoginButton()
+                .clickLoginBtn()
                 .authorize(userName, "12345")
                 .selectRowInTableByText(spend.category())
                 .clickDeleteButton()
@@ -31,7 +31,7 @@ public class SpendingTest extends BaseWebTest {
 
     @GenerateSpendDb(
             username = userName,
-            category = "Ресторан",
+            category = "Рест12121оран",
             description = "Плакучая Ива",
             amount = 227501.00,
             currency = CurrencyValues.RUB
@@ -39,7 +39,7 @@ public class SpendingTest extends BaseWebTest {
     @Test
     void createSpendingByDbAnfDeletedByButtonDelete(SpendJson spend) {
         Selenide.open("http://127.0.0.1:3000/main", WelcomePage.class)
-                .clickLoginButton()
+                .clickLoginBtn()
                 .authorize(userName, "12345")
                 .selectRowInTableByText(spend.category())
                 .clickDeleteButton()

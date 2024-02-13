@@ -1,14 +1,15 @@
 package guru.qa.niffler.pages;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.SetValueOptions;
 import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$x;
 
-public class LoginPage {
-    private SelenideElement filedUsername = $x("//input[@name='username']");
-    private SelenideElement filedPassword = $x("//input[@name='password']");
-    private SelenideElement buttonSubmit = $x("//button[@type='submit']");
+public class LoginPage extends BasePage<LoginPage> {
+    private final SelenideElement filedUsername = $x("//input[@name='username']");
+    private final SelenideElement filedPassword = $x("//input[@name='password']");
+    private final SelenideElement buttonSubmit = $x("//button[@type='submit']");
 
     @Step("Авторизоваться в системе с userName = {userName} и password={password}")
     public MainPage authorize(String userName, String password) {
@@ -26,7 +27,7 @@ public class LoginPage {
 
     @Step("Заполнить поле Password значением {password}")
     public LoginPage setPassword(String password) {
-        filedPassword.setValue(password);
+        filedPassword.setValue(SetValueOptions.withText(password).sensitive());
         return this;
     }
 

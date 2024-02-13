@@ -7,7 +7,7 @@ import io.qameta.allure.Step;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;;
 
-public class AllPeoplePage {
+public class AllPeoplePage extends BasePage<AllPeoplePage> {
 
     private final SelenideElement youAreFriends = $(byText("Pending invitation"));
 

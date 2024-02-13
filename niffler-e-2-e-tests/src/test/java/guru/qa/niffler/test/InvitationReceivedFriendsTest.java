@@ -17,7 +17,7 @@ public class InvitationReceivedFriendsTest extends BaseWebTest {
     void openFriendsPage(@User(INVITATION_RECEIVED) UserJson user) {
         welcomePage
                 .open()
-                .clickLoginButton()
+                .clickLoginBtn()
                 .authorize(user.username(), user.testData().password());
     }
 
@@ -25,7 +25,7 @@ public class InvitationReceivedFriendsTest extends BaseWebTest {
     @DisplayName("Проверка записей в таблице друзей")
     void checkTableFriendIsEmpty() {
         mainPage
-                .clickFriendsButton()
+                .clickFriendsBtn()
                 .checkTableFriendIsEmpty();
     }
 
@@ -33,7 +33,7 @@ public class InvitationReceivedFriendsTest extends BaseWebTest {
     @DisplayName("Проверка отображения в таблице текста Pending invitation")
     void textPendingInvitation() {
         mainPage
-                .clickAllPeopleButton()
+                .clickAllPeopleBtn()
                 .checkTextPendingInvitationVisible();
     }
 

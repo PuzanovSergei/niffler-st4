@@ -17,8 +17,8 @@ public class InvitationSentFriendsTest extends BaseWebTest {
     void openFriendsPage(@User(INVITATION_SENT) UserJson user) {
         welcomePage
                 .open()
-                .clickLoginButton()
-                .authorize(user.username(), user.testData().password()).clickFriendsButton();
+                .clickLoginBtn()
+                .authorize(user.username(), user.testData().password()).clickFriendsBtn();
     }
 
     @Test

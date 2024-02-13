@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
-public class FriendsPage {
+public class FriendsPage extends BasePage<FriendsPage> {
 
     private final SelenideElement submitInvitation = $x("//*[@data-tooltip-id='submit-invitation']//button[contains(@class,'button-icon_type_submit')]");
     private final SelenideElement declineInvitation = $x("//*[@data-tooltip-id='decline-invitation']//button[contains(@class,'button-icon_type_close')]");

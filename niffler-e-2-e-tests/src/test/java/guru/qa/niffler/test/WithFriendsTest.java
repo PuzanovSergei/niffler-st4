@@ -17,9 +17,9 @@ public class WithFriendsTest extends BaseWebTest {
     void openFriendsPage(@User(WITH_FRIENDS) UserJson user) {
         welcomePage
                 .open()
-                .clickLoginButton()
+                .clickLoginBtn()
                 .authorize(user.username(), user.testData().password())
-                .clickFriendsButton();
+                .clickFriendsBtn();
     }
 
     @Test
