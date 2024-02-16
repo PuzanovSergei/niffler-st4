@@ -1,7 +1,7 @@
 package guru.qa.niffler.db.repository;
 
 import guru.qa.niffler.db.DataSourceProvider;
-import guru.qa.niffler.db.JdbcUrl;
+import guru.qa.niffler.db.Database;
 import guru.qa.niffler.db.model.Authority;
 import guru.qa.niffler.db.model.AuthorityEntity;
 import guru.qa.niffler.db.model.UserAuthEntity;
@@ -33,10 +33,10 @@ public class UserRepositorySJdbc implements UserRepository {
 
     public UserRepositorySJdbc() {
         JdbcTransactionManager authTm = new JdbcTransactionManager(
-                DataSourceProvider.INSTANCE.dataSource(JdbcUrl.AUTH)
+                DataSourceProvider.INSTANCE.dataSource(Database.AUTH)
         );
         JdbcTransactionManager udTm = new JdbcTransactionManager(
-                DataSourceProvider.INSTANCE.dataSource(JdbcUrl.USERDATA)
+                DataSourceProvider.INSTANCE.dataSource(Database.USERDATA)
         );
 
         this.authTxt = new TransactionTemplate(authTm);
@@ -153,6 +153,16 @@ public class UserRepositorySJdbc implements UserRepository {
             udTemplate.update("DELETE FROM \"user\" WHERE id = ?", id);
             return null;
         });
+    }
+
+    @Override
+    public Optional<UserAuthEntity> getUserFromAuth(UUID id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<UserEntity> getUserFromUserData(UUID id) {
+        return Optional.empty();
     }
 
     @Override

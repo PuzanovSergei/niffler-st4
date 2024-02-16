@@ -19,12 +19,12 @@ public class CurrencyClient extends RestClient {
     }
 
     @Step("Get all Currencies")
-    public List<CurrencyJson> getInvitations() throws IOException {
+    public List<CurrencyJson> getAllCurrencies() throws IOException {
         return currencyApi.getAllCurrencies().execute().body();
     }
 
     @Step("Calculate")
-    public CurrencyCalculateJson getInvitations(CurrencyCalculateJson currencyCalculate) throws IOException {
+    public CurrencyCalculateJson getAllCurrencies(CurrencyCalculateJson currencyCalculate) throws IOException {
         return currencyApi.getAllCurrencies(currencyCalculate).execute().body();
     }
 }

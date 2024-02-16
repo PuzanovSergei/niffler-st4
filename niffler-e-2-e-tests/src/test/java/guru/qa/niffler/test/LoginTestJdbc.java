@@ -4,7 +4,7 @@ import com.codeborne.selenide.Selenide;
 import guru.qa.niffler.db.model.*;
 import guru.qa.niffler.db.repository.UserRepository;
 import guru.qa.niffler.jupiter.DbUserExtension;
-import guru.qa.niffler.jupiter.UserRepositoryExtension;
+
 import guru.qa.niffler.jupiter.annotation.DbUser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
