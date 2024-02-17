@@ -8,7 +8,9 @@ public enum SuccessMsg implements Msg {
   INVITATION_ACCEPTED("Invitation is accepted"),
   INVITATION_DECLINED("Invitation is declined"),
   SPENDING_ADDED("Spending successfully added"),
-  PROFILE_UPDATED("Profile successfully updated");
+  PROFILE_UPDATED("Profile successfully updated"),
+  PROFILE_MSG("Profile successfully updated"),
+  NEW_CATEGORY_ADD("New category added");
 
   private final String msg;
 

@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class RegisterPage extends BasePage<RegisterPage> {
 
-  public static final String URL = CFG.authUrl() + "/register";
+  public static final String URL = CFG.frontUrl() + "/register";
 
   private final SelenideElement usernameInput = $("input[name='username']");
   private final SelenideElement passwordInput = $("input[name='password']");
