@@ -17,7 +17,6 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class MainPage extends BasePage<MainPage> {
-
   public static final String URL = CFG.frontUrl() + "/main";
 
   protected final Header header = new Header();
