@@ -1,5 +1,7 @@
 package guru.qa.niffler.jupiter;
 
+import guru.qa.niffler.db.logging.JsonAllureAppender;
+import guru.qa.niffler.db.logging.JsonAttachment;
 import guru.qa.niffler.db.model.*;
 import guru.qa.niffler.db.repository.UserRepositoryJdbc;
 import com.github.javafaker.Faker;
@@ -69,6 +71,8 @@ public class DbUserExtension implements ParameterResolver, BeforeEachCallback, A
 
             userData.put(userAuthKey, userAuth);
             userData.put(userKey, user);
+
+            new JsonAllureAppender().logJson(user.toString());
         }
         extensionContext.getStore(NAMESPACE)
                 .put(extensionContext.getUniqueId(), userData);
