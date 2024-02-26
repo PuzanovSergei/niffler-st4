@@ -6,7 +6,6 @@ import com.codeborne.selenide.Driver;
 import guru.qa.niffler.model.SpendJson;
 import guru.qa.niffler.page.component.SpendingColumnName;
 import org.apache.commons.lang3.StringUtils;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -18,32 +17,60 @@ import java.util.Locale;
 
 public class SpendCollectionCondition {
 
-    public static CollectionCondition spends(SpendJson... expectedSPends) {
+    public static CollectionCondition spends(SpendJson... expectedSpends) {
         return new CollectionCondition() {
 
             @Nonnull
             @Override
             public CheckResult check(Driver driver, List<WebElement> elements) {
-                if (elements.size() != expectedSPends.length) {
+                if (elements.size() != expectedSpends.length) {
                     return CheckResult.rejected("Incorrect table size", elements);
                 }
-                for (WebElement element : elements) {
-                    List<WebElement> tds = element.findElements(By.cssSelector("td"));
-                    for (SpendJson expectedSPend : expectedSPends) {
-                        checkByCellName(SpendingColumnName.DATE, convertDateToUiValue(expectedSPend.spendDate()), tds);
-                        checkByCellName(SpendingColumnName.AMOUNT, convertAmountToUiValue(expectedSPend.amount()), tds);
-                        checkByCellName(SpendingColumnName.CURRENCY, String.valueOf(expectedSPend.currency()), tds);
-                        checkByCellName(SpendingColumnName.CATEGORY, expectedSPend.category(), tds);
-                        checkByCellName(SpendingColumnName.DESCRIPTION, expectedSPend.description(), tds);
+                boolean accepted = true;
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.append("Incorrect value in column ");
+                for (int i = 0; i < expectedSpends.length; i++) {
+                    WebElement row = elements.get(i);
+                    SpendJson expectedSpending = expectedSpends[i];
+                    List<WebElement> cells = row.findElements(By.cssSelector("td"));
+
+                    if (!cells.get(SpendingColumnName.DATE.getNumberCell()).getText().equals(convertDateToUiValue(expectedSpending.spendDate()))) {
+                        accepted = false;
+                        errorMessage.append(SpendingColumnName.DATE)
+                                .append(", expect: ")
+                                .append(convertDateToUiValue(expectedSpending.spendDate()))
+                                .append("\n");
+                    }
+                    if (!cells.get(SpendingColumnName.AMOUNT.getNumberCell()).getText().equals(convertAmountToUiValue(expectedSpending.amount()))) {
+                        accepted = false;
+                        errorMessage.append(SpendingColumnName.AMOUNT).append(", expect: ")
+                                .append(convertAmountToUiValue(expectedSpending.amount()))
+                                .append("\n");
+                    }
+                    if (!cells.get(SpendingColumnName.CURRENCY.getNumberCell()).getText().equals(expectedSpending.currency().name())) {
+                        accepted = false;
+                        errorMessage.append(SpendingColumnName.CURRENCY).append(", expect: ")
+                                .append(expectedSpending.currency().name())
+                                .append("\n");
+                    }
+                    if (!cells.get(SpendingColumnName.CATEGORY.getNumberCell()).equals(expectedSpending.category())) {
+                        accepted = false;
+                        errorMessage.append(SpendingColumnName.CATEGORY).append(", expect: ")
+                                .append(expectedSpending.category())
+                                .append("\n");
+                    }
+                    if (!cells.get(SpendingColumnName.DESCRIPTION.getNumberCell()).equals(expectedSpending.description())) {
+                        accepted = false;
+                        errorMessage.append(SpendingColumnName.DESCRIPTION).append(", expect: ")
+                                .append(expectedSpending.description())
+                                .append("\n");
                     }
                 }
-                return super.check(driver, elements);
-            }
-
-            private void checkByCellName(SpendingColumnName columnName, String expectValue, List<WebElement> tds) {
-                Assertions.assertEquals(tds.get(columnName.getNumberCell()).getText(),
-                        expectValue,
-                        "Field with name " + columnName + " contains invalid value");
+                if (accepted) {
+                    return CheckResult.accepted();
+                } else {
+                    return CheckResult.rejected("Incorrect spends content: ", errorMessage);
+                }
             }
 
             private String convertDateToUiValue(Date jsonDate) {
